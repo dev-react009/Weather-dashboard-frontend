@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { lightTheme, darkTheme } from './theme';
 import PropTypes from 'prop-types';
+import WeatherDataSimulator from './components/WeatherDataSimulation';
 const App = () => {
     // State to manage the current theme
     const [theme, setTheme] = useState(lightTheme);
@@ -34,6 +35,7 @@ const App = () => {
             <Box sx={{ padding: 4 }}>
                 
                 <Dashboard toggleTheme={toggleTheme} theme={theme} />
+                <WeatherDataSimulator/>
             </Box>
         </ThemeProvider>
     );

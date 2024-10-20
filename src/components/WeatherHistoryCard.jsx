@@ -15,7 +15,6 @@ const WeatherHistoryCard = ({ historyData }) => {
         wind_dir,
     } = historyData;
 
-    console.log(condition)
 
     return (
         <Card sx={{ borderRadius: '16px', marginTop: 2, boxShadow: 2 }}>

@@ -194,8 +194,8 @@ const TemperatureLineChart = React.memo(function TemperatureLineChart({ sensorId
                     color: '#4B5563',
                     font: { size: 14, family: 'Arial, sans-serif' },
                 },
-                ticks: { color: '#6B7280' },
-                grid: { color: 'rgba(156, 163, 175, 0.2)' },
+                ticks: { color: '#6092f5' },
+                grid: { color: 'rgba(175, 178, 182, 0.2)' },
             },
         },
     }), []);

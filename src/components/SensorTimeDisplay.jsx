@@ -15,7 +15,7 @@ const SensorTimeDisplay = ({ localtime }) => {
 
     return (
         <Box>
-            <Typography sx={{fontSize:"55px",fontWeight:"bold"}}>
+            <Typography sx={{fontSize:{xs:"25px",sm:"45px",md:"50px"},fontWeight:"bold"}}>
                 {` ${timeString}`}
             </Typography>
             <Typography sx={{color:"#555"}}>

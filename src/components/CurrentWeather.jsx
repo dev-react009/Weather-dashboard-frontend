@@ -85,7 +85,7 @@ const CurrentWeather = ({ sensorId }) => {
                     </Card>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <Card sx={{ borderRadius: '16px', boxShadow: 2 , mb:5}}>
+                    <Card sx={{ borderRadius: '16px', boxShadow: 2 , mb:{xs:2,sm:4}}}>
                         <CardContent sx={{ padding: 3 }}>
                             <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#1E3A8A' }}>Additional Information</Typography>
                             <Typography variant="body1">
@@ -109,9 +109,7 @@ const CurrentWeather = ({ sensorId }) => {
                     </Card>
                 </Grid>
                 
-                {/* <Box sx={{ mt: 10, padding: 2 }}>
-                    <WeatherHistoryCard historyData={historyData} />
-                </Box> */}
+                
                 <Grid item xs={12}>
                     <Card sx={{ borderRadius: '16px', boxShadow: 2 }}>
                         <CardContent sx={{ padding: 3 }}>
