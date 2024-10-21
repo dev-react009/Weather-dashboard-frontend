@@ -13,7 +13,8 @@ const TemperatureLineChart = ({ sensorId }) => {
     useEffect(() => {
         const fetchTemperatureData = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/history?sensorId=${sensorId}`);
+                const response = await axios.get(`https://weather-dashboard-backend.vercel.app/api/history?sensorId=${sensorId}`);
+                console.log(response.data); // Check the API response
                 setHistoricalData(response.data);
             } catch (error) {
                 console.error('Error fetching temperature data:', error);
@@ -25,20 +26,20 @@ const TemperatureLineChart = ({ sensorId }) => {
         fetchTemperatureData();
     }, [sensorId]);
 
-    // Prepare chart dataset using useMemo to optimize re-renders
-    const dataset = useMemo(
-        () =>
-            historicalData.map((entry, index) => ({
-                x: new Date(entry.last_updated).toLocaleDateString(), // X-axis: Date
-                y: entry.temp_c, // Y-axis: Temperature in Celsius
-                // Optionally, you can add an index for unique keys if necessary
-                key: index,
-            })),
-        [historicalData]
-    );
+    const dataset = useMemo(() => {
+        const data = historicalData.map((entry) => ({
+            
+            x:new Date(entry.last_updated),
+            y: entry.temp_c,
+        }));
+
+        console.log("Dataset:", data); // Log the dataset to verify
+        return data;
+    }, [historicalData]);
 
     if (loading) return <Stack direction="row" justifyContent="center"><CircularProgress /></Stack>;
     if (error) return <Typography color="error">{error}</Typography>;
+    if (!dataset.length) return <Typography>No temperature data available.</Typography>;
 
     return (
         <Box
@@ -49,17 +50,18 @@ const TemperatureLineChart = ({ sensorId }) => {
                 boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
             }}
         >
-            <Typography variant="h5" sx={{ marginBottom: 2, fontWeight: 'bold', color: "text.primary" }}>
+            <Typography variant="h5" sx={{ marginBottom: 2, fontWeight: 'bold', color: 'text.primary' }}>
                 Historical Temperature Data
             </Typography>
 
             <LineChart
                 dataset={dataset}
-                xAxis={[{ dataKey: 'x', label: 'Date' }]}
+                xAxis={[{ dataKey: 'x', type:"Time",label: 'Date & Time' }]} 
                 series={[{ dataKey: 'y', label: 'Temperature (°C)' }]}
                 height={400}
                 margin={{ left: 100, right: 30, top: 50, bottom: 40 }}
                 grid={{ vertical: true, horizontal: true }}
+                autoScale
             />
         </Box>
     );

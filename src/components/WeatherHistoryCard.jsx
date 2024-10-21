@@ -14,7 +14,7 @@ const WeatherHistoryCard = ({ historyData }) => {
         last_updated,
         wind_dir,
     } = historyData;
-
+console.log(last_updated)
 
     return (
         <Card sx={{ borderRadius: '16px', marginTop: 2, boxShadow: 2 }}>

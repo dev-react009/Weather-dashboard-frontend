@@ -114,7 +114,7 @@ const TemperatureLineChart = React.memo(function TemperatureLineChart({ sensorId
         const fetchTemperatureData = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:5000/api/history?sensorId=${sensorId}`
+                    `https://weather-dashboard-backend.vercel.app/api/history?sensorId=${sensorId}`
                 );
                 setHistoricalData(response.data);
             } catch (error) {

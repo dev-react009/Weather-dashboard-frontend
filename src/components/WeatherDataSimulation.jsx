@@ -11,6 +11,7 @@ const WeatherDataSimulator = () => {
         const windSpeed = (Math.random() * 100).toFixed(2); // Random wind speed between 0-100
         const precipitation = (Math.random() * 50).toFixed(2); // Random precipitation between 0-50
         const condition = Math.random() < 0.5 ? 'Sunny' : 'Rainy'; // Random condition
+        const lastUpdated = new Date().toISOString()
 
         return {
             temp_c: parseFloat(temperature),
@@ -19,6 +20,7 @@ const WeatherDataSimulator = () => {
             wind_kph: parseFloat(windSpeed),
             precip_mm: parseFloat(precipitation),
             condition: condition,
+            last_updated: lastUpdated,
             vis_km: (Math.random() * 10).toFixed(2), // Random visibility
             uv: (Math.random() * 10).toFixed(2), // Random UV index
         };
@@ -27,7 +29,7 @@ const WeatherDataSimulator = () => {
     const postWeatherData = async (sensorId) => {
         const data = generateRandomWeatherData();
         try {
-            const response = await axios.post('http://localhost:5000/api/data', {
+            const response = await axios.post('https://weather-dashboard-backend.vercel.app/api/data', {
                 sensorId,
                 data,
             });

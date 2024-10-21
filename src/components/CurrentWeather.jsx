@@ -15,7 +15,7 @@ const CurrentWeather = ({ sensorId }) => {
     useEffect(() => {
         const fetchWeatherData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/current');
+                const response = await axios.get('https://weather-dashboard-backend.vercel.app/api/current');
                 setWeatherData(response.data);
             } catch (error) {
                 console.error('Error fetching weather data:', error);
@@ -34,7 +34,7 @@ const CurrentWeather = ({ sensorId }) => {
         const fetchHistoryData = async () => {
             if (!sensorId) return; // Check if sensorId is available
             try {
-                const response = await axios.get(`http://localhost:5000/api/history?sensorId=${sensorId}`);
+                const response = await axios.get(`https://weather-dashboard-backend.vercel.app/api/history?sensorId=${sensorId}`);
                 setHistoryData(response.data); // Adjust this based on the expected data structure
             } catch (error) {
                 console.error('Error fetching history data:', error);
@@ -45,7 +45,7 @@ const CurrentWeather = ({ sensorId }) => {
         fetchHistoryData()
     }, [sensorId])
 
-    console.log(historyData);
+    console.log("hist",historyData);
 
     if (loading) return <Stack direction={"row"} justifyContent={'center'}><CircularProgress /></Stack>;
     if (error) return <Typography color="error">{error}</Typography>;
@@ -115,8 +115,10 @@ const CurrentWeather = ({ sensorId }) => {
                         <CardContent sx={{ padding: 3 }}>
                             <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#1E3A8A' }}>Weather History</Typography>
                             {historyData && historyData.length > 0 ? (
-                                historyData.flatMap((entry) => (
+                                historyData.flatMap((entry,index) => (
+                                    <Box key={index}>
                                     <WeatherHistoryCard historyData={entry} />
+                                    </Box>
                                 ))
                             ) : (
                                 <Typography variant="body2" sx={{ color: '#4B5563' }}>
