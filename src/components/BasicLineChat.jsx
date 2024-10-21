@@ -29,7 +29,7 @@ const TemperatureLineChart = ({ sensorId }) => {
     const dataset = useMemo(() => {
         const data = historicalData.map((entry) => ({
             
-            x: new Date(entry.last_updated),
+            x: new Date(entry.last_updated).getSeconds(),
             y: entry.temp_c,
         }));
 
@@ -56,7 +56,7 @@ const TemperatureLineChart = ({ sensorId }) => {
 
             <LineChart
                 dataset={dataset}
-                xAxis={[{ dataKey: 'x', type:"Time",label: 'Date & Time' }]} 
+                xAxis={[{ dataKey: 'x', type:"Time",label: 'Time' }]} 
                 series={[{ dataKey: 'y', label: 'Temperature (°C)' }]}
                 height={400}
                 margin={{ left: 40, right: 30, top: 50, bottom: 40 }}

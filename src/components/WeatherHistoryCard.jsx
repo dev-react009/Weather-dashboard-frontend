@@ -12,9 +12,9 @@ const WeatherHistoryCard = ({ historyData }) => {
         precip_mm,
         pressure_mb,
         last_updated,
-        wind_dir,
+        // wind_dir,
     } = historyData;
-console.log(last_updated)
+
 
     return (
         <Card sx={{ borderRadius: '16px', marginTop: 2, boxShadow: 2 }}>
@@ -35,7 +35,7 @@ console.log(last_updated)
 
                     <Grid item xs={12} sm={4}>
                         <Typography variant="body1">
-                            <strong>Wind:</strong> {wind_kph} kph {`(${wind_dir})`}
+                            <strong>Wind:</strong> {wind_kph} kph 
                         </Typography>
                         <Typography variant="body1">
                             <strong>Humidity:</strong> {humidity}%

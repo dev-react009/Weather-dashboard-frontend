@@ -13,7 +13,7 @@ const Dashboard = ({ toggleTheme, theme }) => {
 
     // Simulated sensor data fetching
     useEffect(() => {
-        // Replace this with your API call to fetch sensor data
+       
         const fetchedSensors = [
             { id: 'sensor1', location: 'London' },
             { id: 'sensor2', location: 'New York' },
@@ -55,7 +55,7 @@ const Dashboard = ({ toggleTheme, theme }) => {
 
             <Box sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3, marginTop: 1, borderRadius: 2, width: "100%", display: "flex", flexDirection: { xs: "column", md: "row" } }}>
                 <Box sx={{ width: { xs: "auto", md: "20%" } }}>
-                    <Grid container spacing={3}>
+                    <Grid container spacing={2}>
                         {/* Sensor Cards */}
                         
                             <Grid item xs={12} sm={12} md={12}>
@@ -64,7 +64,7 @@ const Dashboard = ({ toggleTheme, theme }) => {
                      
                     </Grid>
                 </Box>
-                <Box sx={{ width: { xs: "100%", sm: "100%", md: "80%" }, pl: { xs: 0, sm: 3 }, pt: { xs: 5, md: 0 } }}>
+                <Box sx={{ width: { xs: "100%", sm: "100%", md: "80%" }, pl: { xs: 0, sm: 2 }, pt: { xs: 5, md: 0 } }}>
                     <BasicLineChart sensorId={selectedSensor} />
                 </Box>
             </Box>
