@@ -29,7 +29,7 @@ const TemperatureLineChart = ({ sensorId }) => {
     const dataset = useMemo(() => {
         const data = historicalData.map((entry) => ({
             
-            x:new Date(entry.last_updated),
+            x: new Date(entry.last_updated).getDate(),
             y: entry.temp_c,
         }));
 
