@@ -1,6 +1,10 @@
 // src/components/WeatherHistoryCard.jsx
 import PropTypes from 'prop-types'; // Import PropTypes
 import { Card, CardContent, Typography, Grid, CardMedia } from '@mui/material';
+import { useState } from 'react';
+
+// Fallback image URL (can be customized)
+const FALLBACK_IMAGE = 'https://via.placeholder.com/64?text=No+Image';
 
 const WeatherHistoryCard = ({ historyData }) => {
     const {
@@ -12,9 +16,14 @@ const WeatherHistoryCard = ({ historyData }) => {
         precip_mm,
         pressure_mb,
         last_updated,
-        // wind_dir,
     } = historyData;
+console.log("data",historyData)
+    const [imageSrc, setImageSrc] = useState(condition.icon);
 
+    // Handler for setting fallback image on error
+    const handleImageError = () => {
+        setImageSrc(FALLBACK_IMAGE);
+    };
 
     return (
         <Card sx={{ borderRadius: '16px', marginTop: 2, boxShadow: 2 }}>
@@ -35,7 +44,7 @@ const WeatherHistoryCard = ({ historyData }) => {
 
                     <Grid item xs={12} sm={4}>
                         <Typography variant="body1">
-                            <strong>Wind:</strong> {wind_kph} kph 
+                            <strong>Wind:</strong> {wind_kph} kph
                         </Typography>
                         <Typography variant="body1">
                             <strong>Humidity:</strong> {humidity}%
@@ -54,8 +63,9 @@ const WeatherHistoryCard = ({ historyData }) => {
                         </Typography>
                         <CardMedia
                             component="img"
-                            image={condition.icon}
+                            image={imageSrc}
                             alt={condition.text}
+                            onError={handleImageError} // Handle image loading error
                             sx={{ width: 64, height: 64, marginTop: 1 }}
                         />
                     </Grid>
@@ -71,7 +81,7 @@ WeatherHistoryCard.propTypes = {
         temp_c: PropTypes.number,
         feelslike_c: PropTypes.number,
         condition: PropTypes.shape({
-            text: PropTypes.string.isRequired,
+            text: PropTypes.string,
             icon: PropTypes.string.isRequired,
         }).isRequired,
         wind_kph: PropTypes.number.isRequired,
