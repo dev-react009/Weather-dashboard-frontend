@@ -59,7 +59,7 @@ const TemperatureLineChart = ({ sensorId }) => {
                 xAxis={[{ dataKey: 'x', type:"Time",label: 'Date & Time' }]} 
                 series={[{ dataKey: 'y', label: 'Temperature (°C)' }]}
                 height={400}
-                margin={{ left: 100, right: 30, top: 50, bottom: 40 }}
+                margin={{ left: 40, right: 30, top: 50, bottom: 40 }}
                 grid={{ vertical: true, horizontal: true }}
                 autoScale
             />
