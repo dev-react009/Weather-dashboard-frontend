@@ -2,12 +2,13 @@
 import { useState } from 'react';
 import {
     Box, AppBar, Toolbar, Typography, CssBaseline, Grid,
-    MenuItem, Select, IconButton, TextField, Autocomplete
+    MenuItem, Select, IconButton, TextField, Autocomplete,
+    InputAdornment
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import SensorCard from './SensorCard'; // Your weather card component
 import CurrentWeather from './CurrentWeather';
-import { Brightness4, Brightness7 } from '@mui/icons-material';
+import { Brightness4, Brightness7, LocationOn } from '@mui/icons-material';
 import BasicLineChart from './BasicLineChat';
 
 const cities = [
@@ -85,23 +86,114 @@ const Dashboard = ({ toggleTheme, theme }) => {
 
             <Box sx={{ mt: 5, ml: 1, display: 'flex', justifyContent: 'space-between', mr: 2 }}>
                 {/* Autocomplete for City Selection */}
+
                 <Autocomplete
                     options={cities}
                     value={selectedCity}
                     onChange={handleCityChange}
                     getOptionLabel={(option) => option.label}
-                    renderInput={(params) => <TextField {...params} label="Select City" variant="outlined" />}
-                    sx={{ width: 300, marginRight: 2 }}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            label="Select City"
+                            variant="outlined"
+                            InputProps={{
+                                ...params.InputProps,
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <LocationOn sx={{ color: '#1976d2' }} /> {/* Custom icon color */}
+                                    </InputAdornment>
+                                ),
+                                sx: {
+                                    backgroundColor: '#f9f9f9', // Soft background color
+                                    borderRadius: '8px', // Rounded corners
+                                    boxShadow: '0 3px 6px rgba(0, 0, 0, 0.1)', // Light shadow for elevation
+                                    '& .MuiOutlinedInput-notchedOutline': {
+                                        borderColor: 'none', // Custom border color
+                                    },
+                                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                                        borderColor: theme.palette.mode === 'light'?'#1565c0':"none", // Darker on hover
+                                    },
+                                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                        borderColor: theme.palette.mode === 'light'?'#1e88e5':"none", // Even darker when focused
+                                    },
+                                    '& .MuiAutocomplete-input': {
+                                        color:"#000000",
+                                    },
+                                },
+                            }}
+                            InputLabelProps={{
+                                sx: {
+                                    display: theme.palette.mode === 'dark'?"none":"flex",
+                                    color: theme.palette.mode === 'dark' ? '#ffffff' : '#1976d2', // Adjust label color for dark theme
+                                },
+                            }}
+                        />
+                    )}
+                    sx={{
+                        width: 300,
+                        marginRight: 2,
+                        marginTop:1,
+                        '& .MuiAutocomplete-option': {
+                            padding: '10px 16px', // More padding for options
+                        },
+                        '& .MuiAutocomplete-option:hover': {
+                            backgroundColor: '#e3f2fd', // Highlight option on hover
+                        },
+                        '& .MuiAutocomplete-inputRoot': {
+                            padding: '4px 10px', // Padding inside the input box
+                        },
+                        '& .MuiAutocomplete-paper': {
+                            borderRadius: '8px', // Rounded corners for dropdown
+                            boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)', // Shadow for dropdown
+                        },
+                    }}
                 />
 
                 {/* Sensor Selection Dropdown */}
-                <Select value={selectedSensor} disabled variant="outlined">
+                <Select
+                    value={selectedSensor}
+                    disabled
+                    variant="outlined"
+                    sx={{
+                        width: 300,
+                        backgroundColor: theme.palette.mode === 'dark'?'#424242':"#ffffff", // Dark background color for dark theme
+                        borderRadius: '8px', // Rounded corners
+                        color: '#9e9e9e', // Text color for the selected item in dark theme
+                        boxShadow: '0 3px 6px rgba(0, 0, 0, 0.3)', // Slightly darker shadow for elevation
+                        '.MuiOutlinedInput-notchedOutline': {
+                            borderColor: '#1976d2', // Custom border color
+                        },
+                        '&:hover .MuiOutlinedInput-notchedOutline': {
+                            borderColor: '#1e88e5', // Darker border on hover
+                        },
+                        '& .MuiSelect-select': {
+                            color: '#9e9e9e', // Text color for selected item
+                            padding: '10px 14px', // Increase padding for the selected item
+                        },
+                        '& .MuiSelect-icon': {
+                            color: '#9e9e9e', // Icon color for the dropdown indicator
+                        },
+                    }}
+                >
                     {cities.map((city) => (
-                        <MenuItem key={city.id} value={city.id}>
+                        <MenuItem
+                            key={city.id}
+                            value={city.id}
+                            sx={{
+                                color: '#9e9e9e', // Text color for options in dark theme
+                                padding: '10px 16px', // Increase padding for options
+                                '&:hover': {
+                                    backgroundColor: '#303f9f', // Highlight option on hover (use a darker shade)
+                                    color: '#ffffff', // Change text color on hover
+                                },
+                            }}
+                        >
                             {city.label} (ID: {city.id})
                         </MenuItem>
                     ))}
                 </Select>
+
             </Box>
 
             <Box
