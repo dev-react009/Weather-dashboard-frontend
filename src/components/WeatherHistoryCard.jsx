@@ -1,7 +1,7 @@
 // src/components/WeatherHistoryCard.jsx
 import PropTypes from 'prop-types'; // Import PropTypes
 import { Card, CardContent, Typography, Grid, CardMedia } from '@mui/material';
-// import defaultIcon from "../assets/cloud-template.avif"
+import defaultIcon from "../assets/globe.png"
 
 const WeatherHistoryCard = ({ historyData }) => {
     const {
@@ -52,13 +52,13 @@ console.log("icon",condition.icon)
                         </Typography>
                         <CardMedia
                             component="img"
-                            image={condition.icon ? condition.icon :"https://cdn2.iconfinder.com/data/icons/weather-flat-14/64/weather02-1024.png" }
+                            image={condition.icon ? condition.icon : defaultIcon}
                             alt={"text"}
                             title={condition.text}
                             sx={{ width: 64, height: 64, marginTop: 1 }}
                             onError={({ currentTarget }) => {
                                 currentTarget.onerror = null; // prevents looping
-                                currentTarget.src = 'https://cdn2.iconfinder.com/data/icons/weather-flat-14/64/weather02-1024.png';
+                                currentTarget.src = defaultIcon
                             }}
                         />
                     </Grid>
