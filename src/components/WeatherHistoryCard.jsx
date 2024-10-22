@@ -1,10 +1,7 @@
 // src/components/WeatherHistoryCard.jsx
 import PropTypes from 'prop-types'; // Import PropTypes
 import { Card, CardContent, Typography, Grid, CardMedia } from '@mui/material';
-import { useState } from 'react';
-
-// Fallback image URL (can be customized)
-const FALLBACK_IMAGE = 'https://via.placeholder.com/64?text=No+Image';
+// import defaultIcon from "../assets/cloud-template.avif"
 
 const WeatherHistoryCard = ({ historyData }) => {
     const {
@@ -17,14 +14,8 @@ const WeatherHistoryCard = ({ historyData }) => {
         pressure_mb,
         last_updated,
     } = historyData;
-console.log("data",historyData)
-    const [imageSrc, setImageSrc] = useState(condition.icon);
-
-    // Handler for setting fallback image on error
-    const handleImageError = () => {
-        setImageSrc(FALLBACK_IMAGE);
-    };
-
+console.log("icon",condition.icon)
+  
     return (
         <Card sx={{ borderRadius: '16px', marginTop: 2, boxShadow: 2 }}>
             <CardContent>
@@ -37,9 +28,7 @@ console.log("data",historyData)
                         <Typography variant="body1">
                             <strong>Temperature:</strong> {temp_c}°C (Feels like {feelslike_c}°C)
                         </Typography>
-                        <Typography variant="body1">
-                            <strong>Condition:</strong> {condition.text}
-                        </Typography>
+                        
                     </Grid>
 
                     <Grid item xs={12} sm={4}>
@@ -63,10 +52,14 @@ console.log("data",historyData)
                         </Typography>
                         <CardMedia
                             component="img"
-                            image={imageSrc}
-                            alt={condition.text}
-                            onError={handleImageError} // Handle image loading error
+                            image={condition.icon ? condition.icon :"https://cdn2.iconfinder.com/data/icons/weather-flat-14/64/weather02-1024.png" }
+                            alt={"text"}
+                            title={condition.text}
                             sx={{ width: 64, height: 64, marginTop: 1 }}
+                            onError={({ currentTarget }) => {
+                                currentTarget.onerror = null; // prevents looping
+                                currentTarget.src = 'https://cdn2.iconfinder.com/data/icons/weather-flat-14/64/weather02-1024.png';
+                            }}
                         />
                     </Grid>
                 </Grid>

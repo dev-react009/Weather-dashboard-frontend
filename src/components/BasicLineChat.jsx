@@ -14,17 +14,29 @@ const TemperatureLineChart = ({ sensorId }) => {
         const fetchTemperatureData = async () => {
             try {
                 const response = await axios.get(`https://weather-dashboard-backend.vercel.app/api/history?sensorId=${sensorId}`);
-                console.log(response.data); // Check the API response
-                setHistoricalData(response.data);
+                console.log('API Response:', response); // Log the full response object
+
+                if (response.status === 200 && response.data.length > 0) {
+                    // Successful response, and data exists
+                    setHistoricalData(response.data);
+                    setError(null); // Clear any previous error
+                } else {
+                    setError('No data available or incorrect response.');
+                }
             } catch (error) {
-                console.error('Error fetching temperature data:', error);
-                setError('Failed to fetch temperature data.');
+                console.error('Error fetching temperature data:', error.response || error.message);
+                setError('Failed to fetch temperature data.', error.response || error.message);
             } finally {
                 setLoading(false);
             }
         };
+
         fetchTemperatureData();
     }, [sensorId]);
+
+    
+    console.log(sensorId); // Check the API response
+    
 
     const dataset = useMemo(() => {
         const data = historicalData.map((entry) => ({
@@ -33,7 +45,6 @@ const TemperatureLineChart = ({ sensorId }) => {
             y: entry.temp_c,
         }));
 
-        console.log("Dataset:", data); // Log the dataset to verify
         return data;
     }, [historicalData]);
 

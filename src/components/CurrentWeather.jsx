@@ -30,20 +30,36 @@ const CurrentWeather = ({ sensorId }) => {
         fetchWeatherData();
     }, []);
 
-    useEffect(()=>{
+    useEffect(() => {
         const fetchHistoryData = async () => {
-            if (!sensorId) return; // Check if sensorId is available
+            if (!sensorId) {
+                setError('Sensor ID is missing.'); // Set error if sensorId is not available
+                return;
+            }
+
+            setLoading(true); // Start loading
+            setError(null); // Reset error state
+
             try {
                 const response = await axios.get(`https://weather-dashboard-backend.vercel.app/api/history?sensorId=${sensorId}`);
-                setHistoryData(response.data); // Adjust this based on the expected data structure
+
+                if (response.status === 200 && Array.isArray(response.data) && response.data.length > 0) {
+                    // Assuming the data is an array of history objects
+                    setHistoryData(response.data);
+                } else {
+                    setError('No data available or unexpected response format.');
+                }
             } catch (error) {
                 console.error('Error fetching history data:', error);
                 setError('Could not fetch history data.');
+            } finally {
+                setLoading(false); // End loading
             }
         };
 
-        fetchHistoryData()
-    }, [sensorId])
+        fetchHistoryData();
+    }, [sensorId]);
+
 
     console.log("hist",historyData);
 

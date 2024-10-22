@@ -17,7 +17,45 @@ const cities = [
     { label: 'Paris', id: 'sensor4' },
     { label: 'Sydney', id: 'sensor5' },
     { label: 'Mumbai', id: 'sensor6' },
+    { label: 'Delhi', id: 'sensor7' },
+    { label: 'Bangalore', id: 'sensor8' },
+    { label: 'Chennai', id: 'sensor9' },
+    { label: 'Hyderabad', id: 'sensor10' },
+    { label: 'Kolkata', id: 'sensor11' },
+    { label: 'Ahmedabad', id: 'sensor12' },
+    { label: 'Pune', id: 'sensor13' },
+    { label: 'Jaipur', id: 'sensor14' },
+    { label: 'Lucknow', id: 'sensor15' },
+    { label: 'Kanpur', id: 'sensor16' },
+    { label: 'Chandigarh', id: 'sensor17' },
+    { label: 'Patna', id: 'sensor18' },
+    { label: 'Bhopal', id: 'sensor19' },
+    { label: 'Indore', id: 'sensor20' },
+    { label: 'Toronto', id: 'sensor21' },
+    { label: 'Berlin', id: 'sensor22' },
+    { label: 'Moscow', id: 'sensor23' },
+    { label: 'Beijing', id: 'sensor24' },
+    { label: 'Dubai', id: 'sensor25' },
+    { label: 'Rio de Janeiro', id: 'sensor26' },
+    { label: 'Cape Town', id: 'sensor27' },
+    { label: 'Los Angeles', id: 'sensor28' },
+    { label: 'Rome', id: 'sensor29' },
+    { label: 'Buenos Aires', id: 'sensor30' },
+    { label: 'Seoul', id: 'sensor31' },
+    { label: 'Mexico City', id: 'sensor32' },
+    { label: 'Hong Kong', id: 'sensor33' },
+    { label: 'Istanbul', id: 'sensor34' },
+    { label: 'Singapore', id: 'sensor35' },
+    { label: 'Jakarta', id: 'sensor36' },
+    { label: 'Bangkok', id: 'sensor37' },
+    { label: 'Cairo', id: 'sensor38' },
+    { label: 'Lagos', id: 'sensor39' },
+    { label: 'Karachi', id: 'sensor40' },
+    { label: 'Madrid', id: 'sensor41' },
+    { label: 'Vienna', id: 'sensor42' },
+    { label: 'Sao Paulo', id: 'sensor43' },
 ];
+
 
 const Dashboard = ({ toggleTheme, theme }) => {
     const [selectedCity, setSelectedCity] = useState(cities[0]); // Default to first city
@@ -29,6 +67,7 @@ const Dashboard = ({ toggleTheme, theme }) => {
             setSelectedSensor(newValue.id); // Sync sensor with selected city
         }
     };
+    console.log("city",selectedCity)
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
